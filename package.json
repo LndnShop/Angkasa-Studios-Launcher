@@ -1,13 +1,13 @@
 {
-  "name": "minecraftforunowhycrack",
-  "version": "1.0.0",
-  "productName": "Minecraft For Unowhy Crack",
-  "description": "Launcher pour unowhy",
-  "author": "ci2bx (https://github.com/ci2bx/)",
+  "name": "minemmolauncher",
+  "version": "0.0.2",
+  "productName": "MineMMO Launcher",
+  "description": "Launcher for MineMMO",
+  "author": "Evertalee (https://github.com/LndnShop/)",
   "license": "UNLICENSED",
-  "homepage": "https://github.com/biboubaka/MinecraftForUnowhyCrack",
+  "homepage": "https://github.com/LndnShop/MineMMO-Launcher-v2",
   "bugs": {
-    "url": "https://github.com/biboubaka/MinecraftForUnowhyCrack/issues"
+    "url": "https://github.com/LndnShop/MineMMO-Launcher-v2/issues"
   },
   "private": true,
   "main": "index.js",
@@ -46,6 +46,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/biboubaka/MinecraftForUnowhyCrack.git"
+    "url": "git+https://github.com/LndnShop/MineMMO-Launcher-v2.git"
   }
 }
