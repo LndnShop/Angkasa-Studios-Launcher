@@ -17,5 +17,5 @@ supportLink = "#"
 
 [ejs.welcome]
 welcomeHeader = "Welcome to MineMMO Launcher"
-welcomeDescription = "Ce logiciel vous permet de jouer a Minecraft sur votre ordinateur plus facilement car toutes les dépendances sont installées."
-welcomeDescCTA = "Vous êtes a quelques clics de jouer a Miceraft."
+welcomeDescription = "MineMMO is a Minecraft Survival Server that adds an MMO Styled Mechanics but doesnt remove the vanilla mechanics of the game"
+welcomeDescCTA = "Copyright 2024 @ MineMMO Studios"

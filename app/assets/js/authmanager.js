@@ -36,7 +36,7 @@ exports.addAccount = async function(username, password){
             for (let d = 0; d < 10; d++) {
                 c += 'abcdefghijklmnopqrstuvwxyz1234567890'[Math.floor(Math.random() * 'abcdefghijklmnopqrstuvwxyz1234567890'.length)];
             }
-            const ret = ConfigManager.addMojangAuthAccount('nope_' + c, 'sry', username, username)
+            const ret = ConfigManager.addMojangAuthAccount('minemmo_' + c, 'sry', username, username)
             if(ConfigManager.getClientToken() == null){
                 ConfigManager.setClientToken('sry')
             }
@@ -168,7 +168,7 @@ exports.addMicrosoftAccount = async function(authCode) {
  */
 exports.removeMojangAccount = async function(uuid){
     try {
-        const authAcc = ConfigManager.getAuthAccount(uuid)
+        const authAcc = ConfigManager.getAuthAccounts(uuid)
         const response = await MojangRestAPI.invalidate(authAcc.accessToken, ConfigManager.getClientToken())
         if(response.responseStatus === RestResponseStatus.SUCCESS) {
             ConfigManager.removeAuthAccount(uuid)
