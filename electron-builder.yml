@@ -5,7 +5,7 @@ artifactName: '${productName}-setup-${version}.${ext}'
 copyright: 'Copyright © 2024 Evertalee'
 
 asar: true
-compression: 'maximum'
+compression: 'normal'
 
 files:
   - '!{dist,.gitignore,.vscode,docs,dev-app-update.yml,.nvmrc,.eslintrc.json}'
@@ -38,7 +38,7 @@ mac:
 
 # Linux Configuration
 linux: 
-  target: 'AppImage'
+  target: 'appImage'
   maintainer: 'Evertalee'
   vendor: 'Evertalee'
   synopsis: 'MineMMO Minecraft Launcher'
