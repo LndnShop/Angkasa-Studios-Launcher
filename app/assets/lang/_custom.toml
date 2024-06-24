@@ -1,0 +1,21 @@
+# Custom Language File for Launcher Customizer
+
+[ejs.app]
+title = "MineMMO Launcher"
+
+[ejs.landing]
+mediaGitHubURL = "#"
+mediaTwitterURL = "#"
+mediaInstagramURL = "#"
+mediaWebsiteURL = "#"
+mediaYouTubeURL = "#"
+mediaDiscordURL = "#"
+
+[ejs.settings]
+sourceGithubLink = "#"
+supportLink = "#"
+
+[ejs.welcome]
+welcomeHeader = "Welcome to MineMMO Launcher"
+welcomeDescription = "Ce logiciel vous permet de jouer a Minecraft sur votre ordinateur plus facilement car toutes les dépendances sont installées."
+welcomeDescCTA = "Vous êtes a quelques clics de jouer a Miceraft."
