@@ -11,19 +11,23 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Checkout repository
+      - name: Check out Git repository
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - name: Set up Node
+        uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: 20
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install Dependencies
+        run: npm ci
+        shell: bash
 
       - name: Build
-        run: npm run build
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run dist
+        shell: bash
 
       - name: Create or Update Release
         id: create_or_update_release
