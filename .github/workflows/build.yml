@@ -51,14 +51,3 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}  # Might require specific permissions
           file_glob: ${{ artifacts.artifacts.name }}  # Reference uploaded artifacts
           tag_name: ${{ github.ref }}  # Use the pushed tag name
-
-**Additional Notes:**
-
-* Choose an upload action: There are several actions that can be used for uploading files. Popular options include:
-    * `actions/upload-release-asset@v1`: https://github.com/marketplace/actions/upload-to-github-release
-    * `bluechip-labs/github-release-download@v2`: https://trstringer.com/github-actions-create-release-upload-artifacts/ (Consider this if you need more control over upload options)
-
-* Update upload action details: Replace "..." in the workflow with the specific action name and configure its arguments as needed (refer to the action's documentation).
-* Modify artifact path: The `path` argument in the `upload-artifact` step specifies the location of the files to upload. Update it if your built files are in a different directory.
-*  Permissions for upload: Uploading to releases might require additional permissions for the GH_TOKEN. Refer to the chosen upload action's documentation for details.
-*  Optional Deployment Step: The final step demonstrates how to potentially use a dedicated action for deploying the uploaded artifacts to the release page. This might involve additional configuration specifics to the chosen action.
