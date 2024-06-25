@@ -36,3 +36,14 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm run dist
         shell: bash
+      
+      - name: Create or update release
+        id: create_or_update_release
+        uses: actions/create-or-update-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v0.1.1
+          release_name: Beta Release v0.1.1
+          draft: true  # Ensure this is set appropriately based on your needs
+          overwrite: true  # Depending on the action you use, specify if overwriting is allowed
