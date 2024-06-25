@@ -44,7 +44,7 @@ jobs:
         id: check_release
         with:
           # Replace with your repository owner and name
-          repo: https://github.com/LndnShop/MineMMO-Launcher-v2
+          repo: LndnShop/MineMMO-Launcher-v2
           tags: ${{ github.ref }}  # Check for a release with the pushed tag
 
       - name: Create Release (if not existing)
