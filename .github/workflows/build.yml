@@ -1,8 +1,6 @@
 name: Build
 
-on:
-  push:
-    tags: [ 'v*' ] 
+on: push
 
 jobs:
   release:
@@ -39,8 +37,17 @@ jobs:
         run: npm run dist
         shell: bash
       
-      - name: Create Release (if successful build)
-        uses: actions/create-release@v1  # Create a release on success
+      - name: Check if Existing Release Exists (optional)
+        uses: octokit/rest@v20
+        id: check_release
+        with:
+          # Replace with your repository owner and name
+          repo: ${{ github.repository }}
+          tags: ${{ github.ref }}  # Check for a release with the pushed tag
+
+      - name: Create Release (if not existing)
+        uses: actions/create-release@v1
+        if: steps.check_release.outputs.exists == 'true'  # Create release only if it doesn't exist
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -50,13 +57,12 @@ jobs:
             This release includes changes from commits:
             * ${{ github.sha }}
 
-      - name: Upload Release Asset (if release created)
-        uses: actions/upload-release-asset@v1  # Upload the built file if release is created
-        if: steps.create-release.outputs.id  # Only upload if release exists
+      - name: Upload Release Assets (if release created)
+        uses: actions/upload-release-asset@v1  # Upload files to the created release
+        if: steps.create_release.outputs.id  # Only upload if release exists
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: ./dist/your_built_file_${{ runner.os }}.zip  # Dynamic asset name for each OS
-          asset_name: your_built_file_${{ runner.os }}.zip  # Customize the uploaded file name
-          asset_content_type: application/zip  # Adjust for your file type
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dist/*.zip  # Upload all ZIP files in the dist folder
+          # Add more upload steps with specific file paths if needed
