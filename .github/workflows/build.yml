@@ -7,9 +7,12 @@ on:
 
 jobs:
   release:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     permissions:
       contents: write
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v3
@@ -42,22 +45,12 @@ jobs:
           # Check if release with the tag already exists
           existing_release_id=$(curl -sSL -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/tags/${tag}" | jq -r '.id // empty')
           
-          if [[ -n "$existing_release_id" ]]; then
-            # Update existing release
-            echo "Updating existing release $tag"
-            curl -X PATCH -sSL \
-              -H "Authorization: token $GITHUB_TOKEN" \
-              -H "Accept: application/vnd.github.v3+json" \
-              "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/${existing_release_id}" \
-              -d '{"tag_name": "'"$tag"'","name": "'"$release_name"'","body": "'"$body"'","draft": '"$draft"'}'
-          else
-            # Create new release
-            echo "Creating new release $tag"
-            curl -X POST -sSL \
-              -H "Authorization: token $GITHUB_TOKEN" \
-              -H "Accept: application/vnd.github.v3+json" \
-              "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases" \
-              -d '{"tag_name": "'"$tag"'","name": "'"$release_name"'","body": "'"$body"'","draft": '"$draft"'}'
-          fi
+          # Update existing release
+          echo "Updating existing release $tag"
+          curl -X PATCH -sSL \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/${existing_release_id}" \
+            -d '{"tag_name": "'"$tag"'","name": "'"$release_name"'","body": "'"$body"'","draft": '"$draft"'}'
           
           echo "::set-output name=release_id::$existing_release_id"
