@@ -1,8 +1,8 @@
-name: Build
+name: Build and Upload to Release
 
 on:
-  push:
-    tags: [ 'v*' ] 
+  release:
+    types: [created]
 
 jobs:
   release:
@@ -38,33 +38,27 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm run dist
         shell: bash
-      
-      - name: Check if Existing Release Exists (optional)
-        uses: octokit/rest@v20
-        id: check_release
-        with:
-          # Replace with your repository owner and name
-          repo: LndnShop/MineMMO-Launcher-v2
-          tags: ${{ github.ref }}  # Check for a release with the pushed tag
 
-      - name: Create Release (if not existing)
-        uses: actions/create-release@v1
-        if: steps.check_release.outputs.exists == 'true'  # Create release only if it doesn't exist
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload Build Artifacts to Release
+        uses: actions/upload-artifact@v3
         with:
-          tag_name: ${{ github.ref }}  # Use the pushed tag for release name
-          release_name: Release ${{ github.ref }}  # Custom release name (optional)
-          body: |  # Provide informative release notes (optional)
-            This release includes changes from commits:
-            * ${{ github.sha }}
+          name: build-artifacts
+          path: ./dist  # Modify this path if your built files are located elsewhere
 
-      - name: Upload Release Assets (if release created)
-        uses: actions/upload-release-asset@v1  # Upload files to the created release
-        if: steps.create_release.outputs.id  # Only upload if release exists
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Deploy to Release (Optional)
+        uses: actions/upload-release-asset@v1  # Replace "..." with the upload action name (details below)
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./dist/*.zip  # Upload all ZIP files in the dist folder
-          # Add more upload steps with specific file paths if needed
+          repo_token: ${{ secrets.GITHUB_TOKEN }}  # Might require specific permissions
+          file_glob: ${{ artifacts.artifacts.name }}  # Reference uploaded artifacts
+          tag_name: ${{ github.ref }}  # Use the pushed tag name
+
+**Additional Notes:**
+
+* Choose an upload action: There are several actions that can be used for uploading files. Popular options include:
+    * `actions/upload-release-asset@v1`: https://github.com/marketplace/actions/upload-to-github-release
+    * `bluechip-labs/github-release-download@v2`: https://trstringer.com/github-actions-create-release-upload-artifacts/ (Consider this if you need more control over upload options)
+
+* Update upload action details: Replace "..." in the workflow with the specific action name and configure its arguments as needed (refer to the action's documentation).
+* Modify artifact path: The `path` argument in the `upload-artifact` step specifies the location of the files to upload. Update it if your built files are in a different directory.
+*  Permissions for upload: Uploading to releases might require additional permissions for the GH_TOKEN. Refer to the chosen upload action's documentation for details.
+*  Optional Deployment Step: The final step demonstrates how to potentially use a dedicated action for deploying the uploaded artifacts to the release page. This might involve additional configuration specifics to the chosen action.
