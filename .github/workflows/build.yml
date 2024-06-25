@@ -37,8 +37,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          tag="v0.1.1"
-          release_name="Beta Release v0.1.1"
+          tag="v0.1.2"
+          release_name="Beta Release v0.1.2"
           body="Release notes and description here."
           draft=true  # Set to true if you want to create a draft release
           
