@@ -1,54 +1,42 @@
-name: Build and Release (Multi-OS)
+name: Build
 
-on:
-  push:
-    tags: [ 'v*' ]  # Trigger only on pushes to tags starting with 'v'
+on: push
 
 jobs:
-  build-and-release:
+  release:
     runs-on: ${{ matrix.os }}
+
+    permissions:
+      contents: write
+
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]  # Adjust OSes as needed
-      fail-fast: false  # Continue all steps even if one fails (optional)
+        os: [macos-latest, ubuntu-latest, windows-latest]
 
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v3
 
-      - name: Set up environment (Linux/macOS)
-        if: runner.os == 'Linux' || runner.os == 'macOS'
+      - name: Set up Node
         uses: actions/setup-node@v3
         with:
           node-version: 20
 
-      - name: Set up environment (Windows)
-        if: runner.os == 'Windows'
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.x  # Replace with Node.js setup for Windows if needed
+          python-version: 3.x
 
-      - name: Install Dependencies (Linux/macOS)
-        if: runner.os == 'Linux' || runner.os == 'macOS'
+      - name: Install Dependencies
         run: npm ci
         shell: bash
-
-      - name: Install Dependencies (Windows)
-        if: runner.os == 'Windows'
-        run: pip install requirements.txt  # Replace with your Windows dependency installation command
 
       - name: Build
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |  # Adapt the build command for each OS if necessary
-          if [[ runner.os == 'Linux' || runner.os == 'macOS' ]]; then
-            npm run dist
-          else
-            # Windows build command
-            your_windows_build_command
-          fi
+        run: npm run dist
         shell: bash
-
+      
       - name: Create Release (if successful build)
         uses: actions/create-release@v1  # Create a release on success
         env:
