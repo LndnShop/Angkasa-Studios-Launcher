@@ -49,5 +49,5 @@ jobs:
         uses: actions/upload-release-asset@v1  # Replace "..." with the upload action name (details below)
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}  # Might require specific permissions
-          file_glob: ${{ artifacts.artifacts.name }}  # Reference uploaded artifacts
+          file_glob: ${{ artifacts.name }}  # Reference uploaded artifacts
           tag_name: ${{ github.ref }}  # Use the pushed tag name
