@@ -404,7 +404,7 @@ If the module is enabled by default. Has no effect unless `Required.value` is fa
 
 ---
 
-## Module Types
+## Module Typesp
 
 ### ForgeHosted
 
