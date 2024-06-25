@@ -1,8 +1,6 @@
-name: Build and Upload to Release
+name: Build
 
-on:
-  release:
-    types: [created]
+on: push
 
 jobs:
   release:
@@ -38,16 +36,3 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm run dist
         shell: bash
-
-      - name: Upload Build Artifacts to Release
-        uses: actions/upload-artifact@v3
-        with:
-          name: build-artifacts
-          path: ./dist  # Modify this path if your built files are located elsewhere
-
-      - name: Deploy to Release (Optional)
-        uses: actions/upload-release-asset@v1  # Replace "..." with the upload action name (details below)
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}  # Might require specific permissions
-          file_glob: ${{ artifacts.name }}  # Reference uploaded artifacts
-          tag_name: ${{ github.ref }}  # Use the pushed tag name
