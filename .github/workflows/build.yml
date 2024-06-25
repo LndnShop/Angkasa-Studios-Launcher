@@ -1,49 +1,59 @@
-name: Build
+name: Release Workflow
 
-on: push
+on:
+  push:
+    branches:
+      - main  # Adjust the branch as per your needs
 
 jobs:
   release:
-    runs-on: ${{ matrix.os }}
-
+    runs-on: ubuntu-latest
     permissions:
       contents: write
-
-    strategy:
-      matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
-
     steps:
-      - name: Check out Git repository
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Node
-        uses: actions/setup-node@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: 20
+          node-version: '14'
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.x
-
-      - name: Install Dependencies
-        run: npm ci
-        shell: bash
+      - name: Install dependencies
+        run: npm install
 
       - name: Build
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npm run dist
-        shell: bash
-      
-      - name: Create or update release
+        run: npm run build
+
+      - name: Create or Update Release
         id: create_or_update_release
-        uses: actions/create-or-update-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: v0.1.1
-          release_name: Beta Release v0.1.1
-          draft: true  # Ensure this is set appropriately based on your needs
-          overwrite: true  # Depending on the action you use, specify if overwriting is allowed
+        run: |
+          tag="v0.1.1"
+          release_name="Beta Release v0.1.1"
+          body="Release notes and description here."
+          draft=true  # Set to true if you want to create a draft release
+          
+          # Check if release with the tag already exists
+          existing_release_id=$(curl -sSL -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/tags/${tag}" | jq -r '.id // empty')
+          
+          if [[ -n "$existing_release_id" ]]; then
+            # Update existing release
+            echo "Updating existing release $tag"
+            curl -X PATCH -sSL \
+              -H "Authorization: token $GITHUB_TOKEN" \
+              -H "Accept: application/vnd.github.v3+json" \
+              "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/${existing_release_id}" \
+              -d '{"tag_name": "'"$tag"'","name": "'"$release_name"'","body": "'"$body"'","draft": '"$draft"'}'
+          else
+            # Create new release
+            echo "Creating new release $tag"
+            curl -X POST -sSL \
+              -H "Authorization: token $GITHUB_TOKEN" \
+              -H "Accept: application/vnd.github.v3+json" \
+              "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases" \
+              -d '{"tag_name": "'"$tag"'","name": "'"$release_name"'","body": "'"$body"'","draft": '"$draft"'}'
+          fi
+          
+          echo "::set-output name=release_id::$existing_release_id"
