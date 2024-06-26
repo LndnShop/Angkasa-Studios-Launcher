@@ -20,9 +20,9 @@ newsErrorNoneSpan = "No Changelogs"
 
 [ejs.login]
 loginCancelText = "Cancel"
-loginSubheader = "Create Account"
+loginSubheader = "Create Character"
 loginEmailError = "* Invalid Value"
-loginEmailPlaceholder = "EMAIL"
+loginEmailPlaceholder = "USERNAME"
 loginPasswordError = "* Required"
 loginPasswordPlaceholder = "PASSWORD"
 loginForgotPasswordLink = "https://minecraft.net/password/forgot/"
@@ -30,14 +30,14 @@ loginForgotPasswordText = "forgot password?"
 loginRememberMeText = "remember me?"
 loginButtonText = "LOGIN"
 loginNeedAccountLink = "https://minecraft.net/store/minecraft-java-edition/"
-loginNeedAccountText = "Need an Account?"
+loginNeedAccountText = "Need an Character?"
 loginPasswordDisclaimer1 = "Your password is sent directly to mojang and never stored."
 loginPasswordDisclaimer2 = "{appName} is not affiliated with Mojang AB."
 
 [ejs.loginOptions]
 loginOptionsTitle = "Sign Up"
 loginWithMicrosoft = "Login with Microsoft Account"
-loginWithMojang = "Create Account"
+loginWithMojang = "Create Character"
 cancelButton = "Cancel"
 
 [ejs.overlay]
@@ -50,7 +50,7 @@ accountSelectCancel = "Cancel"
 
 [ejs.settings]
 navHeaderText = "Settings"
-navAccount = "Account"
+navAccount = "Character"
 navMinecraft = "Minecraft"
 navMods = "Mods"
 navJava = "Java"
@@ -58,12 +58,12 @@ navLauncher = "Launcher"
 navAbout = "About"
 navUpdates = "Updates"
 navDone = "Done"
-tabAccountHeaderText = "Account Settings"
-tabAccountHeaderDesc = "Add new accounts or manage existing ones."
+tabAccountHeaderText = "Character Settings"
+tabAccountHeaderDesc = "Add new character or manage existing ones."
 microsoftAccount = "Microsoft"
 addMicrosoftAccount = "+ Add Microsoft Account"
 mojangAccount = "Manage Account"
-addMojangAccount = "+ Create More Account"
+addMojangAccount = "+ Create More Character"
 minecraftTabHeaderText = "Minecraft Settings"
 minecraftTabHeaderDesc = "Options related to game launch."
 gameResolutionTitle = "Game Resolution"
@@ -151,7 +151,7 @@ failureText = "See console (CTRL + Shift + i) for more details."
 okay = "Okay"
 
 [js.landing.selectedAccount]
-noAccountSelected = "No Account Selected"
+noAccountSelected = "No Character Selected"
 
 [js.landing.selectedServer]
 noSelection = "No Server Selected"
