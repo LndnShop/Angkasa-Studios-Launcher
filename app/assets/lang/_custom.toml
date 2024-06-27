@@ -1,7 +1,7 @@
 # Custom Language File for Launcher Customizer
 
 [ejs.app]
-title = "MineMMO Launcher"
+title = "Angkasa Studios Launcher"
 
 [ejs.landing]
 mediaGitHubURL = "#"
@@ -16,6 +16,6 @@ sourceGithubLink = "#"
 supportLink = "#"
 
 [ejs.welcome]
-welcomeHeader = "Welcome to MineMMO Launcher"
-welcomeDescription = "MineMMO is a Minecraft Survival Server that adds an MMO Styled Mechanics but doesnt remove the vanilla mechanics of the game"
-welcomeDescCTA = "Copyright 2024 @ MineMMO Studios"
+welcomeHeader = "Welcome to Angkasa Studios Launcher"
+welcomeDescription = "Angkasa Studios Launcher is a Launcher for user to play on Angkasa Studios Gamemodes."
+welcomeDescCTA = "Copyright 2024 @ Angkasa Studios"

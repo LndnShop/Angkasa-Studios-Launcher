@@ -7,7 +7,7 @@ const logger = LoggerUtil.getLogger('ConfigManager')
 
 const sysRoot = process.env.APPDATA || (process.platform == 'darwin' ? process.env.HOME + '/Library/Application Support' : process.env.HOME)
 
-const dataPath = path.join(sysRoot, '.minemmolauncher')
+const dataPath = path.join(sysRoot, '.angkasastudios')
 
 const launcherDir = require('@electron/remote').app.getPath('userData')
 

@@ -1,5 +1,5 @@
-appId: 'MineMMOLauncher'
-productName: 'MineMMO Launcher'
+appId: 'AngkasaStudios'
+productName: 'Angkasa Studios Launcher'
 artifactName: '${productName}-${version}.${ext}'
 
 copyright: 'Copyright © 2024 Evertalee'
@@ -41,8 +41,8 @@ linux:
   target: 'appImage'
   maintainer: 'Evertalee'
   vendor: 'Evertalee'
-  synopsis: 'MineMMO Minecraft Launcher'
-  description: 'Play MineMMO in a ease'
+  synopsis: 'Angkasa Studios Launcher'
+  description: 'Launcher for Angkasa Studios Gamemode'
   category: 'Game'
 
 
